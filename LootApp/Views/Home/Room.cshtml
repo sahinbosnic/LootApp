@@ -1,0 +1,71 @@
+﻿@model string
+@{
+    ViewData["Title"] = Model;
+}
+
+<div id="RoomPageView">
+    <div class="row my-3">
+        <h1 class="col text-center">@Model.ToUpper()</h1>
+        @*<div class="col-12 col-md-8 mx-auto d-flex justify-content-center roomCodeFields">
+            @foreach (char item in Model.ToUpper())
+            {
+                <input class="form-control" type="text" placeholder="_" maxlength="1" value="@item" disabled>
+            }
+        </div>*@
+    </div>
+
+
+    <div class="row mb-5">
+        <div class="d-flex col-12 col-md-6 col-xl-4 mx-auto justify-content-between roomActionButtons">
+            <button class="btn btn-success StartGame" data-game="roll">Roll</button>
+            @*<button class="btn btn-success StartGame" data-game="roll">Vote</button>
+            <button class="btn btn-success StartGame" data-game="roll">Order</button>*@
+            <button class="btn btn-warning OpenSettings" data-bs-toggle="modal" data-bs-target="#SettingsModal"><i class="fas fa-cog"></i></button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-6 col-xl-4 mx-auto" id="WinnerList">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-md-6 col-xl-4 mx-auto">
+            <h2 class="h5">Users</h2>
+            <ul id="UserList" class="list-group">
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="modal text-black" id="SettingsModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Settings</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="SettingsUsername" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="SettingsUsername" placeholder="Enter a new username" value="">
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" id="SaveSettings" class="btn btn-success" data-bs-dismiss="modal">Save</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/LootApp.js" asp-append-version="true"></script>
+
+    <script>
+        $(document).ready(function () {
+            LootApp.Initialize("@Model");
+        });
+    </script>
+}
